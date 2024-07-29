@@ -5,6 +5,8 @@ To turn a Flic button into a Cloud Button simply involves adding a few metadata 
 They can either be added to an individual button or to a button group.
 Fields set in a button group can be overridden at button level to allow for additional level of control.
 
+A Flic Cloud button requires these 4 Metadata fields to be set in the form of a JSON string:
+
 ```
 {
   "__fcb_icon": ICON_URL,
