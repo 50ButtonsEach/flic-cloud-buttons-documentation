@@ -1,5 +1,8 @@
 # Flic Cloud Buttons Documentation
 
+Flic Cloud Buttons is a No-Code way of integration Flic buttons into your cloud based service.
+The button event is delivered either by a phone via the Flic app, or through the Flic Hub.
+
 ## Flic Device Manager Button Metadata fields
 To turn a Flic button into a Cloud Button simply involves adding a few metadata fields in the [Flic Device Manager](http://dm2.flic.io/).
 They can either be added to an individual button or to a button group.
