@@ -21,7 +21,7 @@ A Flic Cloud button requires these 4 Metadata fields to be set in the form of a 
 ```
 
 `ICON_URL` should be a direct link to an image in the PNG file format no larger than 512x512. Note that the app will cache these images so if the image is updated, the url needs to change to invalidate the cache.\
-Feel free to use our [icon template](https://github.com/50ButtonsEach/flic-cloud-buttons-documentation/blob/main/assets/flic_2_icon_template.png)
+Feel free to use our [icon template](https://github.com/50ButtonsEach/flic-cloud-buttons-documentation/blob/main/assets/flic_2_icon_template.png).
 
 `WEBHOOK_URL` determines the endpoint that will be hit when the button is pushed.
 
