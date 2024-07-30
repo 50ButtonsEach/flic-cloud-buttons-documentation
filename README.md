@@ -90,15 +90,15 @@ Additionally, the server can respond with an optional message. This message will
 
 ## Import Buttons to Flic Device Manager
 There are two ways to get buttons into the [Flic Device Manager](http://dm2.flic.io/).
-You can either order buttons in bulk from us and have them pre-registered to your account and Cloud Button configuration.
-Starting out, however, you can also use a Flic Hub LR to export the buttons and import them into the [Flic Device Manager](http://dm2.flic.io/).
+You can either use the Flic Hub SDK to manually import the buttons or you can [order buttons in bulk](https://flic.io/design-your-flic) from us and have them pre-registered to your account and Cloud Button configuration.
 
-### 1. Export Buttons Using Flic Hub SDK
+### Manual Import
+#### 1. Export Buttons Using Flic Hub SDK
 Connect to your hub using the [Flic Hub SDK](https://hubsdk.flic.io)
 Run the command `scan` in the Command Prompt to start a button scan.
 When the button is connected, run the command `exportbuttons` and copy the pairing data.
 
-### 2. Import into Flic Device Manager
+#### 2. Import into Flic Device Manager
 In the [Flic Device Manager](http://dm2.flic.io/), go to Buttons → Import Buttons.
 Paste the pairing data, press "Parse", and check the buttons you wish to import.
 If you want to add a large amount of buttons you can use the `bulkScan` command in the Flic Hub SDK to scan multiple buttons at once.
