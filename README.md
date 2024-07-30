@@ -13,21 +13,25 @@ A Flic Cloud button requires these 4 Metadata fields to be set in the form of a 
 
 ```
 {
-  "__fcb_icon": ICON_URL,
-  "__fcb_webhook": WEBHOOK_URL
-  "__fcb_webview": WEBVIEW_URL
-  "__fcb_action": ACTION
+  "__fcb_icon": "${icon}",
+  "__fcb_webhook": "${webhook}",
+  "__fcb_webview": "${webview}",
+  "__fcb_action": "${action}",
+  "__fcb_name": "${name}" /* optional */
 }
 ```
 
-`ICON_URL` should be a direct link to an image in the PNG file format no larger than 512x512. Note that the app will cache these images so if the image is updated, the url needs to change to invalidate the cache.\
+`__fcb_icon` should be a direct link to an image in the PNG file format no larger than 512x512. Note that the app will cache these images so if the image is updated, the url needs to change to invalidate the cache.\
 Feel free to use our [icon template](https://github.com/50ButtonsEach/flic-cloud-buttons-documentation/blob/main/assets/flic_2_icon_template.png).
 
-`WEBHOOK_URL` determines the endpoint that will be hit when the button is pushed.
+`__fcb_webhook` determines the endpoint that will be hit when the button is pushed.
 
-`WEBVIEW_URL` is a URL to a webpage that will be displayed inside a webview within the Flic app when a user taps on the button in the button list.
+`__fcb_webview` is a URL to a webpage that will be displayed inside a webview within the Flic app when a user taps on the button in the button list.
 
-`ACTION` can be either `CLOUD` or `CLOUD_LOCATION`.
+`__fcb_action` can be either `CLOUD` or `CLOUD_LOCATION`.
+
+There is also an optional key, `__fcb_name`, that will set the default name of the button.
+
 
 In the case of `CLOUD_LOCATION`, the Geolocation of the phone will be attached to the webhook request.
 Note that this will only work on mobile devices and if the user has allowed permission to access location data.
