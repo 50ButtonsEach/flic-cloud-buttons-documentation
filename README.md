@@ -77,7 +77,6 @@ Example webhook payload:
     "exp": 1721214346,
     "buttonUuid": "336c33540c134a929824e41c0bd3c377",
     "buttonSerialNumber": "BC44-B06243",
-    "buttonName": "BC44-B06243",
     "buttonBatteryStatus": "high",
     "pressedAt": "2024-07-17T12:05:45+02:00",
     "clickType": "click"
