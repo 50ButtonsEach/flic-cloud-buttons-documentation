@@ -9,7 +9,7 @@ To turn a Flic button into a Cloud Button simply involves adding a few metadata 
 They can either be added to an individual button or to a button group.
 Fields set in a button group can be overridden at button level to allow for additional level of control.
 
-A Flic Cloud button requires these 4 Metadata fields to be set in the form of a JSON string:
+A Flic Cloud button requires four Metadata fields to be set in the form of a JSON string, and one optional:
 
 ```
 {
@@ -38,40 +38,66 @@ Note that this will only work on mobile devices and if the user has allowed perm
 If this data is used, it is required that you add a disclaimer explaining how this data will be used in the webview, and instructions on how the user can request deletion of this data.
 
 ## JWT
-All data that is included with the requests are encoded using [JSON Web Token](https://jwt.io).
+All data that is included with the requests are encoded and secured using [JSON Web Token](https://jwt.io).
 JWT offers the reciever the ability to verify the authenticity of the JSON data to ensure that the request is genuine. This provides protection against request forgery.
+The payload part of the token will be a JSON structure containing Flic-specific data about the request as well as the standardized "exp" parameter.
+Our backend signs all JWTs using the ES256 algorithm.
 
 ## Webview Request
 
 The app will supply a query string parameter, `token`, containing a JWT with information about the button that is being displayed.
 Example:
-`{WEBVIEW_URL}?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
+`{WEBVIEW_URL}?token=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9...`
 
-Example webview payload:
+Example webview payload encoded in the JWT:
 ```
 {
     "exp": 1721214346,
     "buttonUuid": "336c33540c134a929824e41c0bd3c377",
     "buttonSerialNumber": "BC44-B06243",
-    "buttonName": "BC44-B06243",
-    "buttonBatteryStatus": "high",
-    "pressedAt": "2024-07-17T12:05:45+02:00",
+    "buttonBatteryStatus": "high"
 }
+```
+
+The P-256 public key used to verify JWTs for this type of request is as follows, encoded in various formats:
+```
+JWK format:
+{
+    "kty": "EC",
+    "x": "qHF1y2ztTcdfknnISSozf-hdoXi6ylzLDGasj7I5TbM",
+    "y": "ahj1rHupaOpKviR3Gy4W1abQMJ9AQdG9JvmNvoaZ4XI",
+    "crv": "P-256"
+}
+
+PEM format:
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEqHF1y2ztTcdfknnISSozf+hdoXi6
+ylzLDGasj7I5TbNqGPWse6lo6kq+JHcbLhbVptAwn0BB0b0m+Y2+hpnhcg==
+-----END PUBLIC KEY-----
+
+DER format (hex):
+3059301306072a8648ce3d020106082a8648ce3d03010703420004a87175cb6c
+ed4dc75f9279c8492a337fe85da178baca5ccb0c66ac8fb2394db36a18f5ac7b
+a968ea4abe24771b2e16d5a6d0309f4041d1bd26f98dbe8699e172
+
+Raw format (x and y coordinates):
+x: 0xA87175CB6CED4DC75F9279C8492A337FE85DA178BACA5CCB0C66AC8FB2394DB3
+y: 0x6A18F5AC7BA968EA4ABE24771B2E16D5A6D0309F4041D1BD26F98DBE8699E172
 ```
 
 ## Webhook Request
 
 When the button is pushed, the push event will be proxied through Flic servers to hide the actual endpoint.
-It will ultimately be delivered as a POST request to the `WEBHOOK_URL` with a JSON containing the JWT under the key "token".
+It will ultimately be delivered as a POST request to the `WEBHOOK_URL` with a JSON body containing the JWT in the "token" field.
 ```
 POST {WEBHOOK_URL}
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  "token": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
-Example webhook payload:
+Example webhook payload encoded in the JWT:
 ```
 {
     "exp": 1721214346,
@@ -83,10 +109,39 @@ Example webhook payload:
 }
 ```
 
+The P-256 public key used to verify JWTs for this type of request is as follows, encoded in various formats:
+```
+JWK format:
+{
+    "kty": "EC",
+    "x": "tOBY_7kJlAPE19qweawQlQah10rOQzhaxfjlen4RasM",
+    "y": "wSbZUG_MoKAVtZTDL2ocWRzCjE43ob6i5PoXC8T8jkY",
+    "crv": "P-256"
+}
+
+PEM format:
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEtOBY/7kJlAPE19qweawQlQah10rO
+Qzhaxfjlen4RasPBJtlQb8ygoBW1lMMvahxZHMKMTjehvqLk+hcLxPyORg==
+-----END PUBLIC KEY-----
+
+DER format:
+3059301306072a8648ce3d020106082a8648ce3d03010703420004b4e058ffb9
+099403c4d7dab079ac109506a1d74ace43385ac5f8e57a7e116ac3c126d9506f
+cca0a015b594c32f6a1c591cc28c4e37a1bea2e4fa170bc4fc8e46
+
+Raw format (x and y coordinates):
+x: 0xB4E058FFB9099403C4D7DAB079AC109506A1D74ACE43385AC5F8E57A7E116AC3
+y: 0xC126D9506FCCA0A015B594C32F6A1C591CC28C4E37A1BEA2E4FA170BC4FC8E46
+```
+
 ## Webhook Response
 In response to a webhook the request, the server should respond with HTTP status `200 OK`.
 Additionally, the server can respond with an optional message. This message will be shown as a notification in the app.
 ```
+200 OK
+Content-Type: application/json
+
 {
     "message": "Button event received!"
 }
