@@ -2,7 +2,7 @@
 
 Flic Cloud Buttons is a No-Code integration for Flic buttons into your cloud based service.
 The button is connected to a phone or a Flic Hub using the Flic app and will immediately by recognized as a cloud button, with custom appearence and a fully customizable webview.
-Button push events are securely delivered to a specified endpoint on your choise.
+Button push events are securely delivered to a specified endpoint on your choice.
 
 ## Flic Device Manager Button Metadata Fields
 To turn a Flic button into a Cloud Button simply involves adding a few metadata fields in the [Flic Device Manager](http://dm2.flic.io/).
@@ -136,7 +136,7 @@ y: 0xC126D9506FCCA0A015B594C32F6A1C591CC28C4E37A1BEA2E4FA170BC4FC8E46
 ```
 
 ## Webhook Response
-In response to a webhook the request, the server should respond with HTTP status `200 OK`.
+In response to a webhook request, the server should respond with HTTP status `200 OK`.
 Additionally, the server can respond with an optional message. This message will be shown as a notification in the app.
 ```
 200 OK
