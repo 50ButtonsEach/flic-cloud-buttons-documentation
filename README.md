@@ -149,7 +149,7 @@ Content-Type: application/json
 
 ## Import Buttons to Flic Device Manager
 There are two ways to get buttons into the [Flic Device Manager](http://dm2.flic.io/).
-You can either use the Flic Hub SDK to manually import the buttons or you can [order buttons in bulk](https://flic.io/design-your-flic) from us and have them pre-registered to your account and Cloud Button configuration.
+You can either use the Flic Hub SDK to manually import the buttons or you can  [order buttons in bulk](https://flic.io/business#contact) from us and have them pre-registered to your account and Cloud Button configuration.
 
 ### Manual Import
 #### 1. Export Buttons Using Flic Hub SDK
