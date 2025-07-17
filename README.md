@@ -137,13 +137,14 @@ y: 0xC126D9506FCCA0A015B594C32F6A1C591CC28C4E37A1BEA2E4FA170BC4FC8E46
 
 ## Webhook Response
 In response to a webhook request, the server should respond with HTTP status `200 OK`.
-Additionally, the server can respond with an optional message. This message will be shown as a notification in the app.
+Additionally, the server can respond with an optional message and/or sound. This message will be shown as a notification in the app.
 ```
 200 OK
 Content-Type: application/json
 
 {
-    "message": "Button event received!"
+    "message": "Button event received!",
+    "sound": "https://example.com/mysound.mp3"
 }
 ```
 
