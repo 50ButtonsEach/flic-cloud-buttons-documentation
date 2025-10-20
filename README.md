@@ -112,6 +112,7 @@ Example webhook payload encoded in the JWT:
 ```
 
 `buttonBatteryStatus` can have the values `unknown`, `low`, `medium` or `high`.
+
 `clickType` can have the values `click`, `double_click` or `hold`.
 
 The P-256 public key used to verify JWTs for this type of request is as follows, encoded in various formats:
